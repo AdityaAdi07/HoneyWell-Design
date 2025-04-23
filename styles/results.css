@@ -1,0 +1,334 @@
+.results-container {
+    display: none;
+    grid-template-columns: 1fr;
+    gap: var(--space-6);
+    animation: fadeIn var(--transition-normal);
+}
+
+@media (min-width: 992px) {
+    .results-container {
+        grid-template-columns: 1fr 1fr;
+    }
+}
+
+.results-section,
+.map-section {
+    background: white;
+    border-radius: var(--radius-lg);
+    padding: var(--space-6);
+    box-shadow: var(--shadow-md);
+    transition: transform var(--transition-normal), box-shadow var(--transition-normal);
+    border: 1px solid var(--neutral-200);
+}
+
+.results-section:hover,
+.map-section:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-lg);
+}
+
+.section-title {
+    margin-bottom: var(--space-4);
+    font-size: 1.5rem;
+    color: var(--dark);
+    display: flex;
+    align-items: center;
+    gap: var(--space-2);
+}
+
+.section-title i {
+    color: var(--primary);
+}
+
+.flight-summary {
+    background: var(--neutral-100);
+    border-radius: var(--radius-lg);
+    padding: var(--space-4);
+    margin-bottom: var(--space-4);
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+    gap: var(--space-4);
+}
+
+.summary-item {
+    display: flex;
+    align-items: flex-start;
+    gap: var(--space-3);
+    transition: transform var(--transition-fast);
+}
+
+.summary-item:hover {
+    transform: translateY(-2px);
+}
+
+.summary-icon {
+    width: 40px;
+    height: 40px;
+    background: var(--primary);
+    color: white;
+    border-radius: var(--radius-md);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.25rem;
+    flex-shrink: 0;
+    transition: transform var(--transition-fast);
+}
+
+.summary-item:hover .summary-icon {
+    transform: scale(1.1);
+}
+
+.summary-details {
+    flex: 1;
+}
+
+.summary-label {
+    font-size: 0.75rem;
+    color: var(--neutral-500);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-bottom: var(--space-1);
+}
+
+.summary-value {
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: var(--dark);
+}
+
+.weather-legend {
+    background: var(--neutral-100);
+    border-radius: var(--radius-lg);
+    padding: var(--space-3) var(--space-4);
+    margin-bottom: var(--space-4);
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+    gap: var(--space-3);
+}
+
+.legend-item {
+    display: flex;
+    align-items: center;
+    gap: var(--space-2);
+    font-size: 0.875rem;
+    transition: transform var(--transition-fast);
+}
+
+.legend-item:hover {
+    transform: scale(1.05);
+}
+
+.legend-color {
+    width: 12px;
+    height: 12px;
+    border-radius: var(--radius-full);
+}
+
+.legend-color.success {
+    background-color: var(--success);
+}
+
+.legend-color.warning {
+    background-color: var(--warning);
+}
+
+.legend-color.danger {
+    background-color: var(--danger);
+}
+
+.progress-section {
+    margin-bottom: var(--space-6);
+}
+
+.progress-tracker {
+    background: var(--neutral-200);
+    border-radius: var(--radius-full);
+    height: 10px;
+    margin: var(--space-3) 0;
+    position: relative;
+    overflow: hidden;
+}
+
+.progress-segment {
+    position: absolute;
+    height: 100%;
+    opacity: 0;
+    animation: slideIn 0.5s ease forwards;
+}
+
+.airports-container {
+    display: flex;
+    justify-content: space-between;
+    margin-top: var(--space-2);
+    flex-wrap: wrap;
+}
+
+.airport-point {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    font-size: 0.75rem;
+    position: relative;
+    opacity: 0;
+    animation: fadeIn 0.5s ease forwards;
+    cursor: pointer;
+}
+
+.airport-indicator {
+    width: 16px;
+    height: 16px;
+    border-radius: var(--radius-full);
+    margin-bottom: var(--space-1);
+    transition: transform var(--transition-fast);
+}
+
+.airport-point:hover .airport-indicator {
+    transform: scale(1.25);
+}
+
+.table-container {
+    overflow-x: auto;
+    border-radius: var(--radius-lg);
+    border: 1px solid var(--neutral-200);
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+th {
+    background-color: var(--neutral-100);
+    padding: var(--space-3);
+    text-align: left;
+    font-weight: 600;
+    border-bottom: 2px solid var(--neutral-200);
+    color: var(--neutral-700);
+    font-size: 0.875rem;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+td {
+    padding: var(--space-3);
+    border-bottom: 1px solid var(--neutral-200);
+    vertical-align: middle;
+}
+
+.weather-row {
+    opacity: 0;
+    animation: slideIn 0.5s ease forwards;
+}
+
+.airport-cell {
+    display: flex;
+    flex-direction: column;
+    cursor: pointer;
+    transition: transform var(--transition-fast);
+}
+
+.airport-cell:hover {
+    transform: translateX(5px);
+}
+
+.airport-details {
+    font-size: 0.75rem;
+    color: var(--primary);
+    margin-top: var(--space-1);
+}
+
+.altitude-cell {
+    display: flex;
+    align-items: baseline;
+    gap: var(--space-1);
+}
+
+.altitude-value {
+    font-weight: 500;
+}
+
+.altitude-unit {
+    font-size: 0.75rem;
+    color: var(--neutral-500);
+}
+
+.weather-cell {
+    display: flex;
+    align-items: center;
+    gap: var(--space-2);
+}
+
+.badge {
+    display: inline-flex;
+    align-items: center;
+    padding: var(--space-1) var(--space-2);
+    border-radius: var(--radius-full);
+    font-size: 0.75rem;
+    font-weight: 600;
+    transition: transform var(--transition-fast);
+}
+
+.badge:hover {
+    transform: scale(1.1);
+}
+
+.animate-badge {
+    animation: pulse 2s infinite;
+}
+
+.badge-success {
+    background-color: rgba(16, 185, 129, 0.1);
+    color: var(--success);
+}
+
+.badge-warning {
+    background-color: rgba(245, 158, 11, 0.1);
+    color: var(--warning);
+}
+
+.badge-danger {
+    background-color: rgba(239, 68, 68, 0.1);
+    color: var(--danger);
+}
+
+@keyframes slideIn {
+    from {
+        opacity: 0;
+        transform: translateX(-20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+@keyframes pulse {
+    0% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.05);
+    }
+    100% {
+        transform: scale(1);
+    }
+}
+
+@media (max-width: 768px) {
+    .results-section,
+    .map-section {
+        padding: var(--space-4);
+    }
+    
+    .flight-summary {
+        grid-template-columns: 1fr;
+        gap: var(--space-3);
+        padding: var(--space-3);
+    }
+    
+    .summary-item {
+        align-items: center;
+    }
+}

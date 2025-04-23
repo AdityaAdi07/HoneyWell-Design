@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Flight Weather Insight</title>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
+    <link rel="stylesheet" href="styles/main.css">
+    <link rel="stylesheet" href="styles/header.css">
+    <link rel="stylesheet" href="styles/alerts.css">
+    <link rel="stylesheet" href="styles/form.css">
+    <link rel="stylesheet" href="styles/results.css">
+    <link rel="stylesheet" href="styles/map.css">
+    <link rel="stylesheet" href="styles/dark-mode.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
+</head>
+<body>
+    <div class="container">
+        <header class="header">
+            <div class="logo">
+                <div class="logo-icon">
+                    <i class="fas fa-plane"></i>
+                </div>
+                <div class="logo-text">
+                    <h1>Flight Weather Insight</h1>
+                    <div class="tagline">Safe Flying Through Better Weather Intelligence</div>
+                </div>
+            </div>
+            <div class="header-right">
+                <div class="utc-time">
+                    <i class="far fa-clock"></i>
+                    <span id="utcTime">00:00:00 UTC</span>
+                </div>
+                <button class="theme-toggle" id="themeToggle" aria-label="Toggle dark mode">
+                    <i class="fas fa-moon"></i>
+                </button>
+            </div>
+        </header>
+        
+        <div class="alert-banner" id="alertBanner">
+            <div class="alert-content">
+                <i class="fas fa-exclamation-triangle"></i>
+                <span id="alertMessage">⚠ Severe Weather Alert: Thunderstorms near KPSP ⚡</span>
+            </div>
+            <button id="closeAlert" aria-label="Close alert">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+        
+        <div class="input-section">
+            <div class="form-group">
+                <label for="flightPlan">Enter Flight Plan</label>
+                <div class="input-wrapper">
+                    <input type="text" id="flightPlan" placeholder="KPHX,1500,KBXK,12000,KPSP,5000,KLAX,1500">
+                    <div class="input-icon">
+                        <i class="fas fa-route"></i>
+                    </div>
+                </div>
+                <div class="help-text">Format: Airport,Altitude,Airport,Altitude,... (Example: KPHX,1500,KBXK,12000)</div>
+            </div>
+            <button class="button" id="submitBtn">
+                <i class="fas fa-search"></i>
+                <span>Get Weather Information</span>
+            </button>
+            <button class="button button-secondary" id="clearBtn">
+                <i class="fas fa-undo"></i>
+                <span>Clear</span>
+            </button>
+        </div>
+        
+        <div class="results-container" id="resultsContainer">
+            <div class="results-section">
+                <h2 class="section-title">
+                    <i class="fas fa-cloud-sun"></i>
+                    Weather Results
+                </h2>
+                
+                <div class="flight-summary">
+                    <div class="summary-item" data-tooltip="Total number of airports in the flight plan">
+                        <div class="summary-icon">
+                            <i class="fas fa-plane-departure"></i>
+                        </div>
+                        <div class="summary-details">
+                            <div class="summary-label">Airports</div>
+                            <div class="summary-value" id="airportCount">4</div>
+                        </div>
+                    </div>
+                    <div class="summary-item" data-tooltip="Overall weather conditions">
+                        <div class="summary-icon">
+                            <i class="fas fa-cloud"></i>
+                        </div>
+                        <div class="summary-details">
+                            <div class="summary-label">Weather Status</div>
+                            <div class="summary-value" id="weatherStatus">Moderate</div>
+                        </div>
+                    </div>
+                    <div class="summary-item" data-tooltip="Flight safety assessment">
+                        <div class="summary-icon">
+                            <i class="fas fa-exclamation-triangle"></i>
+                        </div>
+                        <div class="summary-details">
+                            <div class="summary-label">Risk Assessment</div>
+                            <div class="summary-value" id="riskAssessment">Use Caution</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="weather-legend">
+                    <div class="legend-item">
+                        <div class="legend-color success"></div>
+                        <span>VFR - Good</span>
+                    </div>
+                    <div class="legend-item">
+                        <div class="legend-color warning"></div>
+                        <span>MVFR - Caution</span>
+                    </div>
+                    <div class="legend-item">
+                        <div class="legend-color danger"></div>
+                        <span>IFR - Dangerous</span>
+                    </div>
+                </div>
+                
+                <div class="progress-section">
+                    <h3>Flight Progress</h3>
+                    <div class="progress-tracker" id="progressTracker"></div>
+                    <div class="airports-container" id="airportsContainer"></div>
+                </div>
+                
+                <div class="table-container">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Airport</th>
+                                <th>Altitude</th>
+                                <th>Weather</th>
+                                <th>Risk Level</th>
+                            </tr>
+                        </thead>
+                        <tbody id="weatherTable">
+                            <!-- Table rows will be added dynamically -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            
+            <div class="map-section">
+                <h2 class="section-title">
+                    <i class="fas fa-map-marked-alt"></i>
+                    Flight Route Map
+                </h2>
+                <div class="map-container">
+                    <div id="map"></div>
+                </div>
+                <div class="elevation-profile">
+                    <h3>Elevation Profile</h3>
+                    <div class="elevation-chart" id="elevationChart"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <script src="js/time.js"></script>
+    <script src="js/theme.js"></script>
+    <script src="js/weather.js"></script>
+    <script src="js/map.js"></script>
+    <script src="js/flightPlan.js"></script>
+    <script src="js/app.js"></script>
+</body>
+</html>

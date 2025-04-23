@@ -1,0 +1,119 @@
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: var(--space-8);
+    padding: var(--space-3) 0;
+    position: relative;
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+}
+
+.logo-icon {
+    width: 48px;
+    height: 48px;
+    background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+    color: white;
+    border-radius: var(--radius-md);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-right: var(--space-3);
+    box-shadow: var(--shadow-md);
+    transform: rotate(-10deg);
+    transition: transform var(--transition-normal);
+}
+
+.logo-icon:hover {
+    transform: rotate(0);
+}
+
+.logo-icon i {
+    font-size: 1.5rem;
+}
+
+.logo-text h1 {
+    margin-bottom: var(--space-1);
+}
+
+.tagline {
+    font-size: 0.875rem;
+    color: var(--neutral-500);
+    margin-top: var(--space-1);
+}
+
+.header-right {
+    display: flex;
+    align-items: center;
+    gap: var(--space-4);
+}
+
+.utc-time {
+    background: linear-gradient(to right, var(--dark-alt), var(--dark));
+    color: white;
+    padding: var(--space-2) var(--space-4);
+    border-radius: var(--radius-full);
+    font-size: 0.875rem;
+    display: flex;
+    align-items: center;
+    gap: var(--space-2);
+    box-shadow: var(--shadow-sm);
+    transition: transform var(--transition-fast);
+}
+
+.utc-time:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-md);
+}
+
+.utc-time i {
+    opacity: 0.7;
+}
+
+.theme-toggle {
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 1.25rem;
+    color: var(--dark);
+    width: 40px;
+    height: 40px;
+    border-radius: var(--radius-full);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all var(--transition-normal);
+    background-color: var(--light-alt);
+}
+
+.theme-toggle:hover {
+    transform: rotate(15deg);
+    background-color: var(--neutral-200);
+}
+
+@media (max-width: 768px) {
+    .header {
+        flex-direction: column;
+        align-items: flex-start;
+        margin-bottom: var(--space-6);
+    }
+    
+    .header-right {
+        margin-top: var(--space-4);
+        width: 100%;
+        justify-content: space-between;
+    }
+    
+    .logo-icon {
+        width: 40px;
+        height: 40px;
+    }
+    
+    .utc-time {
+        font-size: 0.75rem;
+        padding: var(--space-1) var(--space-3);
+    }
+}
